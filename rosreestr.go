@@ -5,7 +5,7 @@ import (
 )
 
 type (
-	inData interface {
+	cadastralNumbers interface {
 		GetCN() ([]string, error) // slice of cadastral numbers
 	}
 )
@@ -15,7 +15,7 @@ RosreestrData gets cadastral numbers
 and returns a link to the file.
 Type inData is interface and must support method GetCN() that returns slice []string
 */
-func RosreestrData(data inData) (link string, err error) {
+func RosreestrData(data cadastralNumbers) (link string, err error) {
 
 	cns, err := data.GetCN()
 	if err != nil {
