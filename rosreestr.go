@@ -12,10 +12,10 @@ type (
 
 /*
 RosreestrData gets cadastral numbers
-and returns a link to the file.
+and returns a file.
 Type inData is interface and must support method GetCN() that returns slice []string
 */
-func RosreestrData(data cadastralNumbers) (link string, err error) {
+func RosreestrData(data cadastralNumbers) (file []byte, err error) {
 
 	cns, err := data.GetCN()
 	if err != nil {
@@ -29,7 +29,7 @@ func RosreestrData(data cadastralNumbers) (link string, err error) {
 
 	var obj *ObjectInfo
 
-	wb, err := xlsxOpenFile("")
+	wb, err := xlsxOpenFile("template.xlsx")
 	if err != nil {
 		return
 	}
