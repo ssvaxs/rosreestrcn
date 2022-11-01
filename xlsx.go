@@ -2,13 +2,40 @@ package rosreestrcn
 
 import "github.com/xuri/excelize/v2"
 
-// xlsxOpenFile opens xslx-file
-func xlsxOpenFile(filename string) (*excelize.File, error) {
-	return excelize.OpenFile(filename)
+var (
+	wb *excelize.File
+)
+
+func xlsx(filename string, cns *[]string) (file *[]byte, err error) {
+	var obj *ObjectInfo
+
+	wb, err = excelize.OpenFile("template.xlsx")
+	if err != nil {
+		return
+	}
+	defer wb.Close()
+
+	for i, cn := range *cns {
+		obj, err = rosreestrRequest(cn)
+		if err != nil {
+			return
+		}
+
+		err = xlsxAddRow(obj, i)
+		if err != nil {
+			return
+		}
+	}
+
+	// save in file
+
+	// make zip
+
+	return
 }
 
 // xlsxAddRow adds row of data in our template
-func xlsxAddRow(wb *excelize.File, obj *ObjectInfo, i int) error {
+func xlsxAddRow(obj *ObjectInfo, i int) error {
 
 	return nil
 }

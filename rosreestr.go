@@ -15,7 +15,7 @@ RosreestrData gets cadastral numbers
 and returns a file.
 Type inData is interface and must support method GetCN() that returns slice []string
 */
-func RosreestrData(data cadastralNumbers) (file []byte, err error) {
+func RosreestrData(data cadastralNumbers) (file *[]byte, err error) {
 
 	cns, err := data.GetCN()
 	if err != nil {
@@ -27,25 +27,6 @@ func RosreestrData(data cadastralNumbers) (file []byte, err error) {
 		return
 	}
 
-	var obj *ObjectInfo
-
-	wb, err := xlsxOpenFile("template.xlsx")
-	if err != nil {
-		return
-	}
-	defer wb.Close()
-
-	for i, cn := range cns {
-		obj, err = rosreestrRequest(cn)
-		if err != nil {
-			return
-		}
-
-		err = xlsxAddRow(wb, obj, i)
-		if err != nil {
-			return
-		}
-	}
-
+	file, err = xlsx("template.xlsx", &cns)
 	return
 }
