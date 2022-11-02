@@ -6,7 +6,7 @@ var (
 	wb *excelize.File
 )
 
-func xlsx(filename string, cns *[]string) (file *[]byte, err error) {
+func xlsx(filename string, cns []string) (file []byte, err error) {
 	var obj *ObjectInfo
 
 	wb, err = excelize.OpenFile("template.xlsx")
@@ -15,7 +15,7 @@ func xlsx(filename string, cns *[]string) (file *[]byte, err error) {
 	}
 	defer wb.Close()
 
-	for i, cn := range *cns {
+	for i, cn := range cns {
 		obj, err = rosreestrRequest(cn)
 		if err != nil {
 			return
