@@ -1,12 +1,22 @@
 package rosreestrcn
 
-import "github.com/xuri/excelize/v2"
+import (
+	"fmt"
+
+	"github.com/xuri/excelize/v2"
+)
 
 var (
 	wb *excelize.File
 )
 
 func xlsx(filename string, cns []string) (file []byte, err error) {
+
+	if len(cns) == 0 {
+		err = fmt.Errorf(`"There are no cadastral numbers"`)
+		return
+	}
+
 	var obj *ObjectInfo
 
 	wb, err = excelize.OpenFile("template.xlsx")
