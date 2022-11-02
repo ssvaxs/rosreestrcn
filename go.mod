@@ -1,4 +1,4 @@
-module github.com/ssvaxs/rosreestrcn
+module github.com/ssvaxs/rosreestrcn/v2
 
 go 1.19
 
